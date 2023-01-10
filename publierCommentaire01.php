@@ -15,10 +15,10 @@ $row = mysqli_fetch_assoc($result);
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Publication Article</title>
+	<title>Publier commentaire</title>
 </head>
 <body>
-	<h1>Publication Article</h1>
+	<h1>Publier commentaire</h1>
 
     <p>
         <?php
@@ -61,7 +61,7 @@ $row = mysqli_fetch_assoc($result);
                                
                 // Insert the data into the database
                 $sql = "INSERT INTO tableComentary (content, createdAt)
-                VALUES ($content', '$createdAt')";
+                VALUES ('$content', '$createdAt')";
 
                 if (mysqli_query($conn, $sql)) {
                   echo "New comentary created successfully";

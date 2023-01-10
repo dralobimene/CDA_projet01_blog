@@ -4,6 +4,14 @@
 
 // Connect to the database
 $conn = new mysqli('localhost', 'root', 'rootmdp', 'CDABlog');
+
+/*
+// Fetch the record from the tableAdm table where name = 'laurent'
+$query = "SELECT * FROM tableComentary";
+$result = $conn->query($query);
+$row = mysqli_fetch_assoc($result);
+ */
+
 ?>
 
 <!DOCTYPE html>
@@ -29,10 +37,10 @@ $conn = new mysqli('localhost', 'root', 'rootmdp', 'CDABlog');
               
                 // Insert the data into the database
                 $sql = "INSERT INTO tableComentary (content, createdAt)
-                VALUES ($content', '$createdAt')";
+                VALUES ('$content', '$createdAt')";
 
                 if (mysqli_query($conn, $sql)) {
-                    echo "New comentary created successfully";
+                    echo "New record created successfully";
                     echo "<br>";
                     echo "<a href='index.php'>retour index</a>";
                 } else {
