@@ -11,10 +11,17 @@
     ?>
     <div class="menu">
         <?php
-			$pages = ['publicationArticle.php', 'deleteArticle.php'];
+        $pages = [
+            'publicationArticle.php',
+            'deleteArticle.php',
+            'listArticle.php',
+            'publierCommentaire01.php'
+        ];
+
 			foreach ($pages as $page) {
 				echo "<a href='$page'>$page</a> | ";
-			}
+            }
+
 		?>
     </div>
 </body>

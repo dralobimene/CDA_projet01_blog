@@ -1,4 +1,3 @@
-
 <?php
 
 // Connect to the database
@@ -37,10 +36,10 @@ $answers = array();
 <!DOCTYPE html>
 <html>
 <head>
-	<title>liste des articles que vs vlez effacer</title>
+	<title>liste des articles</title>
 </head>
 <body>
-	<h1>liste des articles que vs vlez effacer</h1>
+	<h1>liste des articles</h1>
 
         <?php
 
@@ -88,10 +87,9 @@ $answers = array();
         */
         // =================================================================================
         // TEST 02
-        echo '<form method="post" action="deleteArticle02.php">';
+        echo '<form method="post">';
         // Assume $data is an array containing the rows of data
         foreach ($data as $row) {
-            echo "<input type='checkbox' name='id[]' value=". $row['id'].">";
             echo "<br>";
             echo $row['title'];
             echo "<br>";
@@ -101,6 +99,8 @@ $answers = array();
             echo "Is Published: " . $row['isPublished'] . "<br><br>";
 
         }
+        
+        /*
         echo '<br>';
         echo '<input type="submit" name="submit" value="Submit">';
         echo '</form>';
@@ -109,6 +109,8 @@ $answers = array();
             $selected_ids = $_POST['id'];
             echo 'Selected ids: ' . implode(',', $selected_ids);
         }
+         */
+
         // =================================================================================
         
         /*
