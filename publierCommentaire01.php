@@ -1,85 +1,127 @@
 
 
-<?php
-
-// Connect to the database
-$db = new mysqli('localhost', 'root', 'rootmdp', 'CDABlog');
-
-// Fetch the record from the tableAdm table where name = 'laurent'
-$query = "SELECT * FROM tableComentary";
-$result = $db->query($query);
-$row = mysqli_fetch_assoc($result);
-
-?>
-
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Publier commentaire</title>
+    <title>Publier commentaire</title>
 </head>
 <body>
-	<h1>Publier commentaire</h1>
+    <h1>Publier commentaire</h1>
 
     <p>
-        <?php
+<?php
 
-        if ($conn) {
-            die("Connection failed: " . mysqli_connect_error());
-        } else {
-            /*
-            if($row['name'] === "laurent") {
-                echo "Bonjour ".$row['name'];
-                echo "<br>";
-                echo "Vs pvez publier";
-                echo "<br>";
-            */
-                echo "<form method='post' action='publierCommentaire02.php'>";
+// Connect to the database
+$dsn = 'mysql:host=localhost;dbname=CDABlog;charset=utf8mb4';
+$username = "root";
+$password = "rootmdp";
 
-                echo "<label for='content'>Content</label>";
-                echo "<br>";
-                echo "<input type='text' id='content' name='content'>";
-                echo "<br>";
+try {
+    $pdo = new PDO($dsn, $username, $password);
+} catch (PDOException $except) {
+    echo 'Connection failed: ' . $except->getMessage();
+    exit;
+}
 
-                echo "<label for='createdAt'>CreatedAt</label>";
-                echo "<br>";
-                echo "<input type='text' id='createdAt' name='createdAt'>";
-                echo "<br>";
+if(isset($_GET['id'])){
+    $id = $_GET['id'];
+    echo "Vs vs apprêtez à publier 1 commentaire pr l'article: ".$id;
+    echo "<br>";
+    echo "Le rédacteur de l'article est: ";
+    echo "<br>";
 
-                echo "<br>";
-                echo "<br>";
-                echo "<input type='submit' value='Submit'>";
-                echo "</form>";                
-                
-                // Get the form data
-                $content = $_POST["content"];
-                echo $content;
-                echo "<br>";
-                
-                $createdAt = $_POST["createdAt"];
-                echo $createdAt;
-                echo "<br>";
-                               
-                // Insert the data into the database
-                $sql = "INSERT INTO tableComentary (content, createdAt)
-                VALUES ('$content', '$createdAt')";
+    // ==============================================================================================
+    // Prepare the SELECT statement to get the author
+    // Presente 1 probleme.
+    // Fonctionne correctement car on a qu'1 seul administrateur qui publie les articles
+    // ms si on doit en avoir 2, la valeur "1" devra etre 1 parametre... Lequel?
+    $stmt = $pdo->prepare('SELECT tableAdm.name FROM tableRelationAdmArticle INNER JOIN tableAdm ON tableRelationAdmArticle.tableAdmId = tableAdm.id WHERE tableRelationAdmArticle.tableAdmId = 1');
+    $stmt->execute();
 
-                if (mysqli_query($conn, $sql)) {
-                  echo "New comentary created successfully";
-                } else {
-                  echo "Error: " . $sql . "<br>" . mysqli_error($conn);
-                }
-                
-                mysqli_close($conn);
-                
-            /*
-            } else {
-                echo "Vs ne pvez pas publier";
-                // echo "<meta http-equiv='refresh' content='1; url=index.php' />
-            }
-             */
-        }
+    $author = $stmt->fetchColumn();
+    echo $author;
 
-            ?>
+    echo "<br>";
+    
+    // ==============================================================================================
+    // Prepare the SELECT statement to get the title of the article
+    $stmt = $pdo->prepare('SELECT title FROM tableArticle WHERE id = :id');
+    $stmt->execute(['id' => $id]);
+
+    $title = $stmt->fetchColumn();
+    echo "Article title: ";
+    echo "<br>";
+    echo $title;
+    echo "<br>";
+
+    // ==============================================================================================
+    // Prepare the SELECT statement to get the content of the article
+    $stmt = $pdo->prepare('SELECT content FROM tableArticle WHERE id = :id');
+    $stmt->execute(['id' => $id]);
+
+    $content = $stmt->fetchColumn();
+    echo "Article content: ";
+    echo "<br>";
+    echo $content;
+    echo "<br>";
+    
+    // ==============================================================================================
+    // Prepare the SELECT statement to get the createdAt of the article
+    $stmt = $pdo->prepare('SELECT createdAt FROM tableArticle WHERE id = :id');
+    $stmt->execute(['id' => $id]);
+
+    $createdAt = $stmt->fetchColumn();
+    echo "Article createdAt: ";
+    echo "<br>";
+    echo $createdAt;
+    echo "<br>";
+    
+    // ==============================================================================================
+    // Prepare the SELECT statement to get the publishedAt of the article
+    $stmt = $pdo->prepare('SELECT publishedAt FROM tableArticle WHERE id = :id');
+    $stmt->execute(['id' => $id]);
+
+    $publishedAt = $stmt->fetchColumn();
+    echo "Article publishedAt: ";
+    echo "<br>";
+    echo $publishedAt;
+    echo "<br>";
+    
+    // ==============================================================================================
+    // Prepare the SELECT statement to get the isPublished of the article
+    $stmt = $pdo->prepare('SELECT isPublished FROM tableArticle WHERE id = :id');
+    $stmt->execute(['id' => $id]);
+
+    $isPublished = $stmt->fetchColumn();
+    echo "Article isPublished: ";
+    echo "<br>";
+    echo $isPublished;
+    echo "<br>";
+
+    // ==============================================================================================
+    echo "<br>";
+    echo "<br>";
+    echo "<form method='post' action='publierCommentaire02.php'>";
+
+    echo "<label for='content'>Content</label>";
+    echo "<br>";
+    echo "<input type='text' id='content' name='content'>";
+    echo "<br>";
+
+    echo "<label for='createdAt'>CreatedAt</label>";
+    echo "<br>";
+    echo "<input type='text' id='createdAt' name='createdAt'>";
+    echo "<br>";
+
+    echo "<br>";
+    echo "<br>";
+    echo "<input type='submit' value='Submit'>";
+    echo "</form>";
+}else{
+    echo "No id passed";
+}
+
+?>
     </p>
 
 </body>

@@ -66,9 +66,13 @@ $answers = array();
             echo "Created At: " . $row['createdAt'] . "<br>";
             echo "Published At: " . $row['publishedAt'] . "<br>";
             echo "Is Published: " . $row['isPublished'] . "<br>";
-            echo "<a href='publierCommentaire01'>Publiez 1 commentaire</a>";
+            // echo "<a href='publierCommentaire01.php'>Publiez 1 commentaire</a>";
+            echo "<a href='publierCommentaire01.php?id=".$row['id']."'>Publiez 1 commentaire</a>";
             echo "<br>";
             echo "<br>";
+            echo "<hr>";
+            echo "<hr>";
+            echo "<hr>";
         }
        
         ?>
