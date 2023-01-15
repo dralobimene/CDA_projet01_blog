@@ -43,7 +43,7 @@ $answers = array();
 
         <?php
 
-            // Prepare the SELECT statement
+        // Prepare the SELECT statement
         $stmt = $pdo->prepare('SELECT * FROM tableArticle WHERE isPublished = true;');
         
         // Execute the statement
@@ -55,38 +55,7 @@ $answers = array();
         // Iterate through the data and display the values
         
         // =================================================================================
-        // TEST 01
-        /* 
-        foreach ($data as $row) {
-            
-            echo "<form method='post'>";
-            echo '<input type="checkbox" name="answer" value="' . $row['id'] . '">';
-            echo "<br>";
-            // echo '</form>';
-
-            echo "Title: " . $row['title'] . "<br>";
-            echo "Content: " . $row['content'] . "<br>";
-            echo "Created At: " . $row['createdAt'] . "<br>";
-            echo "Published At: " . $row['publishedAt'] . "<br>";
-            echo "Is Published: " . $row['isPublished'] . "<br><br>";
-            // echo "</form>";
-                        
-        }
-
-        echo '<br>';
-        echo '<input type="submit" name="submit" value="Submit">';
-        echo "</form>";
-
-        if(isset($_POST['submit'])){
-            if(isset($_POST['answer'])){
-                array_push($answers, $_POST['answer']);
-            }
-            echo '<br>';
-            echo 'Answers: ' . count($answers);
-        }
-        */
-        // =================================================================================
-        // TEST 02
+        //
         echo '<form method="post">';
         // Assume $data is an array containing the rows of data
         foreach ($data as $row) {
@@ -96,29 +65,12 @@ $answers = array();
             echo "Content: " . $row['content'] . "<br>";
             echo "Created At: " . $row['createdAt'] . "<br>";
             echo "Published At: " . $row['publishedAt'] . "<br>";
-            echo "Is Published: " . $row['isPublished'] . "<br><br>";
-
+            echo "Is Published: " . $row['isPublished'] . "<br>";
+            echo "<a href='publierCommentaire01'>Publiez 1 commentaire</a>";
+            echo "<br>";
+            echo "<br>";
         }
-        
-        /*
-        echo '<br>';
-        echo '<input type="submit" name="submit" value="Submit">';
-        echo '</form>';
-
-        if(isset($_POST['submit'])){
-            $selected_ids = $_POST['id'];
-            echo 'Selected ids: ' . implode(',', $selected_ids);
-        }
-         */
-
-        // =================================================================================
-        
-        /*
-        echo '<br>';
-        echo 'Answers: ';
-        print_r($answers);
-         */
-
+       
         ?>
 
 </body>
