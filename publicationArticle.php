@@ -63,7 +63,7 @@ if ($conn) {
 
     } else {
         echo "Vs ne pvez pas publier";
-        echo "<meta http-equiv='refresh' content='2; url=index.php' />
+        echo "<meta http-equiv='refresh' content='2; url=index.php' />";
     }
 }
 
